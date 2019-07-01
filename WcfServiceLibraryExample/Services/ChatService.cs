@@ -30,8 +30,12 @@ namespace WcfServiceLibraryExample.Services
             };
             listUsers.Add(user);
             callback = OperationContext.Current.GetCallbackChannel<IDuplexContract>();
+            Task.Run(() =>
+            {
             callback.ClientMethod("IDuplex");
+
             SendMess(user.Name + " connected", 0);
+            });
             return user.Id;
         }
 

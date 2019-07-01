@@ -9,7 +9,7 @@ namespace WcfServiceLibraryExample.Contracts
 {
     public interface IDuplexContract
     {
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void ClientMethod(string msg);
     }
 }

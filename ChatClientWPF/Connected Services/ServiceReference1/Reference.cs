@@ -43,7 +43,7 @@ namespace ChatClientWPF.ServiceReference1 {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IContractCallback {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContract/ClientMethod", ReplyAction="http://tempuri.org/IContract/ClientMethodResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IContract/ClientMethod")]
         void ClientMethod(string msg);
     }
     

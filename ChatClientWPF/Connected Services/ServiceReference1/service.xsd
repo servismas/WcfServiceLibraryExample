@@ -51,9 +51,4 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ClientMethodResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
 </xs:schema>
