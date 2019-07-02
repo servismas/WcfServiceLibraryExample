@@ -11,7 +11,6 @@ namespace WcfServiceLibraryExample.Services
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class ChatService : IContract
     {
-        IDuplexContract callback = null;
         List<ConnectedUser> listUsers;
         int nextId;
         public ChatService()
@@ -29,13 +28,7 @@ namespace WcfServiceLibraryExample.Services
                 operationContext = OperationContext.Current
             };
             listUsers.Add(user);
-            callback = OperationContext.Current.GetCallbackChannel<IDuplexContract>();
-            Task.Run(() =>
-            {
-            callback.ClientMethod("IDuplex");
-
             SendMess(user.Name + " connected", 0);
-            });
             return user.Id;
         }
 
@@ -49,7 +42,6 @@ namespace WcfServiceLibraryExample.Services
             }
         }
 
-        //[OperationBehavior(TransactionAutoComplete = true, TransactionScopeRequired = true)]
         public void SendMess(string mes, int id)
         {
             string answer = DateTime.Now.ToShortTimeString() + " ";
@@ -59,11 +51,14 @@ namespace WcfServiceLibraryExample.Services
                 answer += " : " + user.Name + " ";
             }
             answer += mes;
-            foreach (var u in listUsers)
+            Task.Run(() =>
             {
-                var cb = u.operationContext.GetCallbackChannel<IDuplexContract>();
-                cb.ClientMethod(answer);
-            }
+                foreach (var u in listUsers)
+                {
+                    var cb = u.operationContext.GetCallbackChannel<IDuplexContract>();
+                    cb.ClientMethod(answer);
+                }
+            });
         }
 
         public int ServiceMethodAdd(int a, int b)

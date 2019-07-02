@@ -19,7 +19,7 @@ namespace WcfServiceLibraryExample.Contracts
         [OperationContract]
         int Connect(string name);
 
-        [OperationContract(IsOneWay = true)]
+        [OperationContract]
         void Disconnect(int id);
     }
 }

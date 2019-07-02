@@ -5,9 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChatClientWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="355.5" Width="530" Closing="Window_Closing">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Height="32" Margin="146,89,0,0" VerticalAlignment="Top" Width="47" Click="Button_Click"/>
+        <TextBox Name="tbUserName" HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" TextWrapping="Wrap" Text="User Name" VerticalAlignment="Top" Width="248"/>
+        <Button Name="btConDiscon" Content="Connect" HorizontalAlignment="Left" Height="32" Margin="263,10,0,0" VerticalAlignment="Top" Width="244" Click="btConDiscon_Click"/>
+        <ListBox Name="lbMessages" HorizontalAlignment="Left" Height="212" Margin="10,57,0,0" VerticalAlignment="Top" Width="497"/>
+        <TextBox Name="tbMessage" HorizontalAlignment="Left" Height="31" Margin="10,279,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="396"/>
+        <Button Name="Send" Content="Send" HorizontalAlignment="Left" Height="31" Margin="416,279,0,0" VerticalAlignment="Top" Width="91" Click="Send_Click"/>
 
     </Grid>
 </Window>

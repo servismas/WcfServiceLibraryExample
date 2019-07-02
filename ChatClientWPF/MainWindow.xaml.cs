@@ -17,29 +17,66 @@ using System.Windows.Shapes;
 
 namespace ChatClientWPF
 {
-    public class CallbackHandler : IContractCallback
+    public partial class MainWindow : Window, IContractCallback 
     {
-        public void ClientMethod(string msg)
-        {
-            MessageBox.Show("Server answer: " + msg); ;
-        }
-    }
-    public partial class MainWindow : Window
-    {
+        bool isConnected = false;
+        ContractClient client;
+        int id;
+
         public MainWindow()
         {
             InitializeComponent();
-           
-        }
-        public void Connect()
-        {
-            ContractClient client = new ContractClient(new InstanceContext(new CallbackHandler()));
-            client.Connect("Grisha");
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btConDiscon_Click(object sender, RoutedEventArgs e)
         {
-            Connect();
+            if (isConnected)
+            {
+                DisconnectUser();
+            }
+            else ConnectUser();
+        }
+        private void Send_Click(object sender, RoutedEventArgs e)
+        {
+            if (client != null)
+            {
+                client.SendMess(tbMessage.Text, id);
+                tbMessage.Text = "";
+            }
+        }
+
+        void ConnectUser()
+        {
+            if (!isConnected)
+            {
+                client = new ContractClient(new InstanceContext(this));
+                btConDiscon.Content = "Disconnect";
+                isConnected = true;
+                tbUserName.IsEnabled = false;
+                id = client.Connect(tbUserName.Text);
+            }
+        }
+        void DisconnectUser()
+        {
+            if (isConnected)
+            {
+                client.Disconnect(id);
+                tbUserName.IsEnabled = true;
+                client = null;
+                btConDiscon.Content = "Connect";
+                isConnected = false;
+            }
+        }
+
+        public void ClientMethod(string msg)
+        {
+            lbMessages.Items.Add(msg);
+            lbMessages.ScrollIntoView(lbMessages.Items[lbMessages.Items.Count - 1]);
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            DisconnectUser();
         }
     }
 }

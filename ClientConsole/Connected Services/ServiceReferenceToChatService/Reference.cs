@@ -33,10 +33,10 @@ namespace ClientConsole.ServiceReferenceToChatService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContract/Connect", ReplyAction="http://tempuri.org/IContract/ConnectResponse")]
         System.Threading.Tasks.Task<int> ConnectAsync(string name);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IContract/Disconnect")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContract/Disconnect", ReplyAction="http://tempuri.org/IContract/DisconnectResponse")]
         void Disconnect(int id);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IContract/Disconnect")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContract/Disconnect", ReplyAction="http://tempuri.org/IContract/DisconnectResponse")]
         System.Threading.Tasks.Task DisconnectAsync(int id);
     }
     
